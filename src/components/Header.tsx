@@ -7,7 +7,7 @@ export default function Header (){
         <div className="flex justify-between bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100 px-4 py-2">              
         <div className= "flex flex-row ml-10 mt-2">
                 <FaChartLine size={26} />
-                <div className="pl-2 font-bold text-lg mt-0">... your e-Commerce platform</div>
+                <div className="pl-2 font-bold text-lg mt-0">... your Stock platform</div>
                 <ThemeButton />
 
             </div>
