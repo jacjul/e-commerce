@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-dotenv
+pwdlib[argon2]
+PyJWT
+python-jose
+python-multipart
+pydantic
+requests
+pandas
+yfinance

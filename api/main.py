@@ -1,3 +1,5 @@
+# python -m uvicorn api.main:app --port 8000 --reload run from e-commerce
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.core.database import Base, engine
