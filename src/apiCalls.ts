@@ -19,11 +19,13 @@ export  async function getAPI(url="/api" ,accessToken?:string|null){
 
 }
 
-export async function postAPI(url="/api", body={}){
+export async function postAPI(url="/api",accessToken?:string|null, body={}){
     try {
     const response = await fetch (url, {
         method :"POST",
-        headers:{"Content-Type": "application/json"},
+        headers:{"Content-Type": "application/json",
+            ...(accessToken? {Authorization :`Bearer ${accessToken}`}:{}),
+        },
         body : JSON.stringify(body),
         mode : "cors"
     })

@@ -4,7 +4,7 @@ type LoginPayload ={username: string, password:string}
 type AccessTokenResponse ={access_token: string, token_type:string}
 type AuthProviderProps = {
     accessToken :string |null
-    loggedIn : boolean
+    isAuthenticated : boolean
     login : (payload:LoginPayload) =>Promise<void>
     refresh : ()=>Promise<void>
     logout : ()=>void
@@ -39,7 +39,7 @@ async function refreshRequest():Promise<AccessTokenResponse>{
 
 export function AuthProvider({children}:{children:React.ReactNode}){
     const [accessToken, setAccessToken] =useState<string|null>(null)
-    const [loggedIn, setLoggedIn] =useState<boolean>(false)
+    
 
 
     const login = useCallback(async(payload:LoginPayload)=>{
@@ -63,7 +63,7 @@ export function AuthProvider({children}:{children:React.ReactNode}){
     useEffect(()=>{refresh().catch(()=>setAccessToken(null))},[refresh])
 
     const values = useMemo(()=>({
-        accessToken, loggedIn: !!accessToken, login, refresh, logout
+        accessToken, isAuthenticated: !!accessToken, login, refresh, logout
     }), [accessToken,login,logout,refresh])
       
     

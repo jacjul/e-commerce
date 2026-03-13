@@ -78,19 +78,21 @@ const CandleSticks = () => {
   if (!candles.length) return <div>No candle data available.</div>
 
   return (
-    <div className="w-2/5 rounded-2xl p-4 border-solid border-2">
-      <div className="flex flex-row justify-between " >
-      <select  id="selectSymbol" name="selectSymbol" className="bg-gray-500 text-black h-10 my-2" value={currentSymbol} onChange={handleSelectChange}>
-        {symbols?.map(symbol => <option value={symbol} key={symbol}>{symbol}</option>)}
+    <div className="card-shell h-full">
+      <div className="card-content">
+      <div className="section-separator flex flex-wrap items-center justify-between gap-3" >
+      <select id="selectSymbol" name="selectSymbol" className="control-base min-w-28" value={currentSymbol} onChange={handleSelectChange}>
+        {symbols?.map(symbol => <option className="bg-slate-800 text-slate-100" value={symbol} key={symbol}>{symbol}</option>)}
       </select>
-      <div className="flex gap-2 py-2 mr-4">
-        <button type="button" onClick={() => setTimeRange("1W")} className="px-2 py-1 border border-gray-500" disabled={timeRange === "1W"}>1W</button>
-        <button type="button" onClick={() => setTimeRange("1M")} className="px-2 py-1 border border-gray-500" disabled={timeRange === "1M"}>1M</button>
-        <button type="button" onClick={() => setTimeRange("1Y")} className="px-2 py-1 border border-gray-500" disabled={timeRange === "1Y"}>1Y</button>
-        <button type="button" onClick={() => setTimeRange("ALL")} className="px-2 py-1 border border-gray-500" disabled={timeRange === "ALL"}>ALL</button>
+      <div className="flex flex-wrap gap-2">
+        <button type="button" onClick={() => setTimeRange("1W")} className="control-base" disabled={timeRange === "1W"}>1W</button>
+        <button type="button" onClick={() => setTimeRange("1M")} className="control-base" disabled={timeRange === "1M"}>1M</button>
+        <button type="button" onClick={() => setTimeRange("1Y")} className="control-base" disabled={timeRange === "1Y"}>1Y</button>
+        <button type="button" onClick={() => setTimeRange("ALL")} className="control-base" disabled={timeRange === "ALL"}>ALL</button>
       </div>
       </div>
       <LightWeightCandles candles={filteredCandles}/> 
+      </div>
     </div>
   )
 }

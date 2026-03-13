@@ -11,9 +11,8 @@ import {useAuth} from "./components/context/AuthContext.tsx"
 import './App.css'
 
 function App() {
-  const {loggedIn} = useAuth()
   const [theme, setTheme] = useState<Theme>("dark")
-
+  const {isAuthenticated} = useAuth()
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark")
   }, [theme])
@@ -26,7 +25,7 @@ function App() {
         <Routes >
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={loggedIn? <Profile />:<Navigate to="/login" replace />} />
+          <Route path="/profile" element={isAuthenticated? <Profile />:<Navigate to="/login" replace />} />
           <Route path="/register" element={<Register />} />
  
         </Routes>

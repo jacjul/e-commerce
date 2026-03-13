@@ -97,6 +97,14 @@ def add_to_favorites(add_symbol:str , user:User= Depends(get_current_user), db:S
     except:
         db.rollback()
         raise HTTPException(status_code=401,detail ="Couldnt add the Symbol to favorites")
+    
+@router.get("/favorites", response_model=list[str])
+def get_favorite_stocks_of_user(user:User =Depends(get_current_user), db:Session= Depends(get_db)):
+
+    stmt = select(distinct(UserFavorites.symbol)).where(UserFavorites.user_id ==user.id).order_by(UserFavorites.symbol.asc())
+    symbols = db.execute(stmt).scalars().all()
+
+    return symbols
 
     
      
