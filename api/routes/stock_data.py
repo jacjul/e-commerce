@@ -2,7 +2,7 @@ from fastapi import APIRouter,Depends,HTTPException
 from sqlalchemy.orm import Session
 from api.core.database import get_db
 from api.models.stock_data_daily import StockDataDaily,UserFavorites
-from sqlalchemy import select,distinct,insert,exists
+from sqlalchemy import select,distinct,insert,exists,delete,and_
 from datetime import datetime,timedelta
 import pandas as pd
 import numpy as np 
@@ -105,6 +105,21 @@ def get_favorite_stocks_of_user(user:User =Depends(get_current_user), db:Session
     symbols = db.execute(stmt).scalars().all()
 
     return symbols
+
+@router.post("/favorites/delete/{delete_symbol}")
+def delete_favorite(delete_symbol:str , user:User = Depends(get_current_user), db:Session=Depends(get_db)):
+    print(delete_symbol)
+    print(user.id)
+    try:
+        stmt = delete(UserFavorites).where(and_(
+            UserFavorites.symbol==delete_symbol,
+             UserFavorites.user_id==user.id ))
+        db.execute(stmt)
+        db.commit()
+        return f"Successful deleted {delete_symbol}"
+    except:
+        db.rollback()
+        raise HTTPException(status_code=403, detail="Couldnt delete Favorite")
 
     
      

@@ -1,42 +1,25 @@
-export  async function getAPI(url="/api" ,accessToken?:string|null){
-    try{ 
-    const response = await fetch(url , {
-        method : "GET" ,
-        headers : {"Content-type" : "application/json",
-            ...(accessToken? {Authorization :`Bearer ${accessToken}`}:{}),
+async function request(url: string, method: "GET" | "POST", accessToken?: string | null, body?: unknown) {
+    const response = await fetch(url, {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+            ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         },
+        ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
         credentials: "include",
-        mode: "cors" 
+        mode: "cors",
     })
 
-    if (!response.ok){
-        throw new Error (`Response status ${response.status}`)
-    }
-    const data = await response.json()
-    console.log(data)
-    return {"message": data, "success": true}}
-    catch(err){return {"message": `Following error occured ${err}`, "success":false}}
-
+    if (!response.ok) throw new Error(`Response status ${response.status}`)
+    return response.json()
 }
 
-export async function postAPI(url="/api",accessToken?:string|null, body={}){
-    try {
-    const response = await fetch (url, {
-        method :"POST",
-        headers:{"Content-Type": "application/json",
-            ...(accessToken? {Authorization :`Bearer ${accessToken}`}:{}),
-        },
-        body : JSON.stringify(body),
-        mode : "cors"
-    })
-    if(!response.ok){
-        throw new Error(`Response status ${response.status}`)}
+export async function getAPI(url = "/api", accessToken?: string | null) {
+    const data = await request(url, "GET", accessToken)
+    return { message: data, success: true }
+}
 
-    const data = await response.json()
-    console.log(data)
-    return({"message":data, "success":true})
-
-    }catch(err){
-        return({"message":`Following error occured ${err}`, "success":false})
-    }
+export async function postAPI(url = "/api", accessToken?: string | null, body: unknown = {}) {
+    const data = await request(url, "POST", accessToken, body)
+    return { message: data, success: true }
 }

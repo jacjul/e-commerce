@@ -36,6 +36,7 @@ def download_tickers():
 
 
 if __name__ == "__main__":
-    download_tickers()
+    download_tickers() ### this downloads daily candles for up to multiple years
+    download_infos ()
 
     

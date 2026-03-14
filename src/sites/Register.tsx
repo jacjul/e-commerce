@@ -4,7 +4,7 @@ import {postAPI} from "../apiCalls"
 
 type RegisterPayload = {
   name: string
-  last_name: string
+  lastname: string
   username: string
   password: string
 }
@@ -15,7 +15,8 @@ const [showPassword, setShowPassword] =useState(false)
 
 const mutationRegister = useMutation({
   mutationFn: async(user: RegisterPayload)=>{
-    const response = await postAPI("/api/user/register" , user)
+    // postAPI signature is (url, accessToken, body)
+    const response = await postAPI("/api/user/register", null, user)
     console.log(response)
     return response
   },
@@ -32,7 +33,7 @@ function handleSubmit(event: React.FormEvent<HTMLFormElement>){
     if (values.password !== values.passwordConfirm){
       alert("Passwords are not the same")
     }else {
-    const regPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
+    const regPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&]).{8,}$/
     if(regPattern.test(String(values.password))){
     const payload: RegisterPayload = {
       name: values.name,
