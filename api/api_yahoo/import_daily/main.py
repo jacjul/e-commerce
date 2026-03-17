@@ -1,8 +1,8 @@
 
 import yfinance as yf
 import pandas as pd
-from   api.api_yahoo.data_validation import verification_df
-from api.api_yahoo.database_import import import_database
+from   api.api_yahoo.import_daily.data_validation import verification_df
+from api.api_yahoo.import_daily.database_import import import_database
 def download_tickers():
     # initial population of the db 
     names_sp = pd.read_csv("api/api_yahoo/sp500_companies.csv")["Symbol"].to_list()
@@ -37,6 +37,6 @@ def download_tickers():
 
 if __name__ == "__main__":
     download_tickers() ### this downloads daily candles for up to multiple years
-    download_infos ()
+   
 
     

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from api.core.database import engine
 
-sql_path = Path(__file__).resolve().parent / "sql" / "merge_prices_daily.sql"
+sql_path = Path(__file__).resolve().parent.parent / "sql" / "merge_prices_daily.sql"
 
 
 def import_database(df_valid):
