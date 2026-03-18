@@ -16,7 +16,7 @@ export type StocksData ={
     month_indicator: string
 }
 
-const MultipleStocks = () => {
+const MultipleStocks = ({onSelectStock}:{onSelectStock:(symbol:string)=>void}) => {
     const queryClient = useQueryClient()
     const [currentIndex,setCurrentIndex] =useState<number>(0)
     const {accessToken,isAuthenticated} =useAuth()
@@ -76,12 +76,12 @@ const MultipleStocks = () => {
             ^
         </button>
                 <div className="header-row section-separator grid grid-cols-[1.2fr_auto_auto] items-center gap-3 px-3 md:grid-cols-[1fr_1.2fr_1fr_1fr_0.8fr_0.6fr]">
-            {isAuthenticated?<><span>Symbol</span><span>img</span><span>Day</span><span className="hidden md:block">Week %</span><span className="hidden md:block">Trend</span><span className="hidden md:block">Add</span></>:
-           <> <span>Symbol</span><span>img</span><span>Day</span><span className="hidden md:block">Week %</span><span className="hidden md:block">Trend</span></>}
+            {isAuthenticated?<><span>Image</span><span>Symbol</span><span>Day</span><span className="hidden md:block">Week %</span><span className="hidden md:block">Trend</span><span className="hidden md:block">Add</span></>:
+           <> <span>Image</span><span>Symbol</span><span>Day</span><span className="hidden md:block">Week %</span><span className="hidden md:block">Trend</span></>}
         </div>
         <div className="divide-y divide-slate-800/80 px-1 py-1">
             {stocks.slice(currentIndex,currentIndex+10).map(
-                stock =><SingleStock key={stock.symbol} stock={stock} stockImage={logos[stock.symbol]} addToFavorites={addToFavorites}/>)}
+                stock =><SingleStock key={stock.symbol} stock={stock} onSelectStock={onSelectStock} stockImage={logos[stock.symbol]} addToFavorites={addToFavorites}/>)}
         </div>
         
                 <button onClick={()=>setCurrentIndex(prev =>prev+10)} disabled={hasNext} className="control-base w-full" >

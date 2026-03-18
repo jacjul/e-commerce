@@ -4,7 +4,7 @@ import {getAPI} from "../apiCalls"
 import {useAuth} from "./context/AuthContext"
 import {postAPI} from "../apiCalls"
 
-const Favorites = () => {
+const Favorites = ({onSelectStock}:{onSelectStock:(symbol:string)=>void}) => {
     const {accessToken} =useAuth()
 
         const {data:favorite_symbols =[],isPending,error} = useQuery<string[]>({
@@ -38,7 +38,7 @@ const Favorites = () => {
                 <div className="flex flex-col gap-2">
                         {favorite_symbols.map((fav:string) =>
                         <div key={fav} className="flex items-center justify-between rounded-lg px-2 py-1 hover:bg-slate-800/60">
-                                <div className="label-primary truncate">{fav}</div>
+                                <button onClick={()=>onSelectStock(fav)} className="label-primary truncate">{fav}</button>
                                 <button onClick={()=>deleteFavorite(fav)} className="control-base control-icon">-</button>
                         </div>)}
                         {!favorite_symbols.length && <div className="value-text text-slate-300">No favorites yet.</div>}

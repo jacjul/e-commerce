@@ -9,6 +9,7 @@ import { ThemeContext } from "./components/context/theme-context"
 import type { Theme } from "./components/context/theme-context"
 import {useAuth} from "./components/context/AuthContext.tsx"
 import './App.css'
+import {SymbolProvider} from "./components/context/SymbolContext.tsx"
 
 function App() {
   const [theme, setTheme] = useState<Theme>("dark")
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
+      <SymbolProvider >
       <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
         <Header />
 
@@ -30,6 +32,7 @@ function App() {
  
         </Routes>
       </div>
+      </SymbolProvider>
     </ThemeContext.Provider>
 
   )

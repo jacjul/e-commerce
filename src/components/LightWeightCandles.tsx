@@ -15,7 +15,7 @@ export default function LightWeightCandles({ candles }: Props) {
     useEffect(()=>{
         if(!containerRef.current) return;
         const chart =createChart(containerRef.current, {
-            width : containerRef.current.clientWidth,
+            width : containerRef.current.clientWidth -20,
             height: 400,
             layout: { background: { color: "#ffffff" }, textColor: "#222" },
             grid: { vertLines: { color: "#eee" }, horzLines: { color: "#eee" } },
