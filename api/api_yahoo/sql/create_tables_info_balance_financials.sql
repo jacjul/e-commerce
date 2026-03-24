@@ -48,6 +48,13 @@ source_created_at TIMESTAMPTZ,
 loaded_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS market_data.financials(
+    symbol VARCHAR (20),
+    year INT NOT NULL,
+    PRIMARY KEY (symbol, year)
+
+);
+
 CREATE INDEX IF NOT EXISTS idx_industry ON market_data.company_profile(industry);
 
 CREATE INDEX IF NOT EXISTS idx_symbol_industry on market_data.company_profile(symbol, industry);

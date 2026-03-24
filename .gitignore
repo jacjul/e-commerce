@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 
 # Environment files
-.env
 .env.*
 !.env.example
 
@@ -38,7 +37,5 @@ __pycache__/
 .ruff_cache/
 
 # Python virtual environments
-venv/
 .venv/
-api/venv/
 api/.venv/
