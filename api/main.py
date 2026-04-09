@@ -5,9 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.core.database import Base, engine
 from api.routes import user,stock_data, stock_data_info, stock_data_comparison, update_databases
 from contextlib import asynccontextmanager
+from sqlalchemy import text
 
 
 def create_db_and_tables():
+    with engine.begin() as conn:
+        conn.execute(text("CREATE SCHEMA IF NOT EXISTS market_data"))
     Base.metadata.create_all(bind=engine)
 
 
