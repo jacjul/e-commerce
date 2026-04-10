@@ -11,6 +11,14 @@ h5 {
     font-weight:300
 }
 
+.row-default {
+    background-color:white;
+}
+.row-active  {
+    background-color:rgb(184, 31, 31);
+    border-radius: 4px;
+    opacity : 0.9;
+}
 @layer components {
     .card-shell {
         @apply overflow-hidden rounded-2xl border border-slate-700 bg-slate-900/70 shadow-xl backdrop-blur-sm;
